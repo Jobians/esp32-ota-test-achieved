@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -23,17 +22,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install platformio
 
-      - name: Cache PlatformIO
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.platformio/packages
-            ~/.platformio/lib
-            ~/.platformio/platforms
-          key: platformio-${{ runner.os }}-${{ hashFiles('platformio.ini') }}
-          restore-keys: |
-            platformio-${{ runner.os }}-
-
       - name: Build Project
-        run: |
-          pio run
+        run: pio run
+
+      - name: Upload firmware binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: firmware
+          path: .pio/build/**/firmware.bin
