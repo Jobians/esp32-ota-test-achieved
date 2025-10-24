@@ -52,7 +52,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: v1.0.0
-          name: "Firmware v1.0.0"
           body: "Automated firmware build from PlatformIO"
           allowUpdates: true
           artifacts: .pio/build/**/firmware.bin
